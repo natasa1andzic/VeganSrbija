@@ -9,18 +9,18 @@ import android.widget.Button;
 
 public class LoginActivity extends AppCompatActivity {
 
-    Button loginBackBtn;
-    Button loginNextBtn;
+    Button backBtn;
+    Button nextBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        loginBackBtn = (Button)findViewById(R.id.loginBackBtn);
-        loginNextBtn = (Button)findViewById(R.id.loginNextBtn);
+        backBtn = (Button)findViewById(R.id.loginBackBtn);
+        nextBtn = (Button)findViewById(R.id.loginNextBtn);
 
-        loginBackBtn.setOnClickListener(new View.OnClickListener() {
+        backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(LoginActivity.this, MainActivity.class);
@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        loginNextBtn.setOnClickListener(new View.OnClickListener() {
+        nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(LoginActivity.this, HomeActivity.class);

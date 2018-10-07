@@ -17,7 +17,7 @@
         />ß
 
     <EditText
-        android:id="@+id/emailEt"
+        android:id="@+id/emailReg_EmailEt"
         android:hint="Email"
         android:textSize="20sp"
         android:layout_width="match_parent"
@@ -29,48 +29,48 @@
         />
 
     <EditText
-        android:id="@+id/passwordEt"
+        android:id="@+id/emailReg_PasswordEt"
         android:inputType="textVisiblePassword"
         android:hint="Password"
         android:textSize="20sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/emailEt"
+        android:layout_below="@+id/emailReg_EmailEt"
         android:layout_marginTop="35dp"
         android:layout_marginRight="35dp"
         android:layout_marginLeft="35dp"
         />
 
     <EditText
-        android:id="@+id/repeatPasswordEt"
+        android:id="@+id/emailReg_RepeatPasswordEt"
         android:inputType="textVisiblePassword"
         android:hint="Repeat password"
         android:textSize="20sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/passwordEt"
+        android:layout_below="@+id/emailReg_PasswordEt"
         android:layout_marginTop="35dp"
         android:layout_marginRight="35dp"
         android:layout_marginLeft="35dp"
         />
 
     <Button
-        android:id="@+id/nextBtn"
+        android:id="@+id/emailReg_NextBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/emailEt"
-        android:layout_alignRight="@+id/emailEt"
+        android:layout_alignEnd="@+id/emailReg_EmailEt"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="35dp"
         android:background="@color/colorPrimary"
         android:text="Register"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:layout_alignRight="@+id/emailReg_EmailEt" />
 
     <Button
-        android:id="@+id/backButton"
+        android:id="@+id/emailReg_BackBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/nextBtn"
+        android:layout_alignTop="@+id/emailReg_NextBtn"
         android:layout_centerHorizontal="true"
         android:background="@color/white"
         android:text="Back" />

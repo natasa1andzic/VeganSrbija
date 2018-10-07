@@ -10,14 +10,18 @@ public class MainActivity extends AppCompatActivity {
 
     Button loginBtn;
     Button emailRegisterBtn;
+    Button fbBtn;
+    Button googleBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        loginBtn = (Button)findViewById(R.id.loginBtn);
-        emailRegisterBtn = (Button)findViewById(R.id.emailRegisterBtn);
+        loginBtn = (Button)findViewById(R.id.Main_loginBtn);
+        emailRegisterBtn = (Button)findViewById(R.id.Main_emailRegisterBtn);
+
+
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -34,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 
 
 }

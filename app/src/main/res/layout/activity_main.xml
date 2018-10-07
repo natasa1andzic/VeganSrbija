@@ -17,7 +17,7 @@
         />
 
     <Button
-        android:id="@+id/loginBtn"
+        android:id="@+id/Main_loginBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Login"
@@ -29,36 +29,36 @@
         />
 
     <Button
-        android:id="@+id/emailRegisterBtn"
+        android:id="@+id/Main_emailRegisterBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Register using e-mail"
         android:background="@color/colorPrimary"
-        android:layout_below="@+id/loginBtn"
+        android:layout_below="@+id/Main_loginBtn"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:textColor="@color/white"
         />
 
     <Button
-        android:id="@+id/regGoogleBtn"
+        android:id="@+id/Main_regGoogleBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Register using Google"
         android:background="@color/colorPrimary"
-        android:layout_below="@+id/emailRegisterBtn"
+        android:layout_below="@+id/Main_emailRegisterBtn"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:textColor="@color/white"
         />
 
     <Button
-        android:id="@+id/regFacebookBtn"
+        android:id="@+id/Main_regFacebookBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Register using Facebook"
         android:background="@color/colorPrimary"
-        android:layout_below="@+id/regGoogleBtn"
+        android:layout_below="@+id/Main_regGoogleBtn"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:textColor="@color/white"
