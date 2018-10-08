@@ -18,9 +18,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        loginBtn = (Button)findViewById(R.id.Main_loginBtn);
-        emailRegisterBtn = (Button)findViewById(R.id.Main_emailRegisterBtn);
-
+        loginBtn = (Button)findViewById(R.id.main_loginBtn);
+        emailRegisterBtn = (Button)findViewById(R.id.main_emailRegisterBtn);
+        fbBtn = (Button)findViewById(R.id.main_regFacebookBtn);
+        googleBtn = (Button)findViewById(R.id.main_regGoogleBtn);
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,7 +38,28 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        fbBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //trazi permission
+                //kada se dobije permission, prebaci intent na HomeActivity
+                //podaci profila su podaci sa fejsbuka
+            }
+        });
+
+        googleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //trazi permission
+                //kada se dobije permission, prebaci intent na HomeActivity
+                //podaci profila su podaci gmail naloga
+            }
+        });
+
     }
+
+
 
 
 
