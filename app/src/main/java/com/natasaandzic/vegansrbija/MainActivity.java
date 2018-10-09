@@ -14,6 +14,7 @@ import com.facebook.login.widget.LoginButton;
 import com.squareup.picasso.Picasso;
 
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -42,10 +43,9 @@ public class MainActivity extends AppCompatActivity {
     Button googleBtn;
     CallbackManager callbackManager;
     ProgressDialog progressDialog;
-    String id, firstName,lastName, email,birthday,gender;
+    String id, firstName, lastName, birthday, gender;
     private URL profilePicture;
 
-    TextView userEmail;
     TextView userName;
     TextView userLastName;
     TextView userBday;
@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
         fbBtn = (LoginButton) findViewById(R.id.main_regFacebookBtn);
         // googleBtn = (Button) findViewById(R.id.main_regGoogleBtn);
 
-       // userEmail = (TextView) findViewById(R.id.userEmail);
         userName = (TextView) findViewById(R.id.userName);
         userLastName = (TextView) findViewById(R.id.userLastname);
         userBday = (TextView) findViewById(R.id.userBday);
@@ -100,8 +99,6 @@ public class MainActivity extends AppCompatActivity {
                                 firstName = object.getString("first_name");
                             if(object.has("last_name"))
                                 lastName = object.getString("last_name");
-                           // if (object.has("email"))
-                             //   email = object.getString("email");
                             if (object.has("birthday"))
                                 birthday = object.getString("birthday");
                             if (object.has("gender"))
@@ -117,8 +114,15 @@ public class MainActivity extends AppCompatActivity {
 
                         userName.setText(firstName);
                         userLastName.setText(lastName);
-                       // userEmail.setText(email);
                         userBday.setText(birthday);
+
+                        Intent i = new Intent(MainActivity.this,ProfileActivity.class);
+                        i.putExtra("name",firstName);
+                        i.putExtra("surname",lastName);
+                        i.putExtra("birthday",birthday);
+                        i.putExtra("imageUrl",profilePicture.toString());
+                        startActivity(i);
+                        finish();
                     }
                 });
 
