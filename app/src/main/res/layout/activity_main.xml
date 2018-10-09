@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:id="@+id/icon"
+        android:id="@+id/avatarImg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/veg"
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:text="Login"
         android:background="@color/colorPrimary"
-        android:layout_below="@+id/icon"
+        android:layout_below="@+id/avatarImg"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="70dp"
         android:textColor="@color/white"
@@ -41,20 +41,21 @@
         />
 
     <com.google.android.gms.common.SignInButton
-        android:id="@+id/sign_in_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:id="@+id/main_regGoogleBtn"
+        android:layout_width="173dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="68dp" />
 
-    <Button
+
+    <com.facebook.login.widget.LoginButton
         android:id="@+id/main_regFacebookBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register using Facebook"
-        android:background="@color/colorPrimary"
-        android:layout_below="@+id/main_regGoogleBtn"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:textColor="@color/white"
-        />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="127dp" />
 
 </RelativeLayout>

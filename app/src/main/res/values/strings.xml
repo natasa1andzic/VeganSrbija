@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">VeganSrbija</string>
+    <string name="facebook_app_id">1037372706444713</string>
+    <string name="fb_login_protocol_scheme">fb1037372706444713</string>
+
+
 </resources>
