@@ -58,4 +58,33 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="127dp" />
 
+
+
+    <TextView
+        android:id="@+id/userName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/main_emailRegisterBtn"
+        android:hint="Name" />
+
+    <TextView
+        android:id="@+id/userLastname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/userBday"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:hint="Last name" />
+
+    <TextView
+        android:id="@+id/userBday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/userLastname"
+        android:layout_marginBottom="155dp"
+        android:hint="Bday"/>
+
 </RelativeLayout>

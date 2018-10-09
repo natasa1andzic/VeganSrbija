@@ -1,5 +1,7 @@
 package com.natasaandzic.vegansrbija;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -14,6 +16,7 @@ import com.squareup.picasso.Picasso;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,33 +42,39 @@ public class MainActivity extends AppCompatActivity {
     Button googleBtn;
     CallbackManager callbackManager;
     ProgressDialog progressDialog;
+    String id, firstName,lastName, email,birthday,gender;
+    private URL profilePicture;
 
     TextView userEmail;
+    TextView userName;
+    TextView userLastName;
     TextView userBday;
     ImageView avatarImg;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-        FacebookSdk.sdkInitialize(this.getApplicationContext());
         setContentView(R.layout.activity_main);
-
-        callbackManager = CallbackManager.Factory.create();
 
         loginBtn = (Button) findViewById(R.id.main_loginBtn);
         emailRegisterBtn = (Button) findViewById(R.id.main_emailRegisterBtn);
         fbBtn = (LoginButton) findViewById(R.id.main_regFacebookBtn);
-       // googleBtn = (Button) findViewById(R.id.main_regGoogleBtn);
+        // googleBtn = (Button) findViewById(R.id.main_regGoogleBtn);
 
-        userEmail = (TextView) findViewById(R.id.userEmail);
+       // userEmail = (TextView) findViewById(R.id.userEmail);
+        userName = (TextView) findViewById(R.id.userName);
+        userLastName = (TextView) findViewById(R.id.userLastname);
         userBday = (TextView) findViewById(R.id.userBday);
         avatarImg = (ImageView) findViewById(R.id.avatarImg);
 
+
+        callbackManager = CallbackManager.Factory.create();
+
         List<String> permissionNeeds = Arrays.asList("user_photos", "email", "user_birthday", "public_profile");
         fbBtn.setReadPermissions(permissionNeeds);
+
+
         fbBtn.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -75,18 +84,46 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("onSuccess");
 
                 String accessToken = loginResult.getAccessToken().getToken();
+               // if (AccessToken.getCurrentAccessToken() != null)
+               //     userEmail.setText(AccessToken.getCurrentAccessToken().getUserId());
 
                 final GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
                         progressDialog.dismiss();
                         Log.d("Response", response.toString());
-                        getData(object);
+
+                        try {
+                            id = object.getString("id");
+                            profilePicture = new URL("https://graph.facebook.com/" + id + "/picture?width=250&height=250");
+                            if(object.has("first_name"))
+                                firstName = object.getString("first_name");
+                            if(object.has("last_name"))
+                                lastName = object.getString("last_name");
+                           // if (object.has("email"))
+                             //   email = object.getString("email");
+                            if (object.has("birthday"))
+                                birthday = object.getString("birthday");
+                            if (object.has("gender"))
+                                gender = object.getString("gender");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (MalformedURLException e) {
+                            e.printStackTrace();
+                        }
+
+
+                        Picasso.with(MainActivity.this).load(profilePicture.toString()).into(avatarImg);
+
+                        userName.setText(firstName);
+                        userLastName.setText(lastName);
+                       // userEmail.setText(email);
+                        userBday.setText(birthday);
                     }
                 });
 
                 Bundle parameters = new Bundle();
-                parameters.putString("fields", "id, email, birthday");
+                parameters.putString("fields", "id, first_name, last_name, email, birthday, gender , location");
                 request.setParameters(parameters);
                 request.executeAsync();
 
@@ -103,9 +140,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        if (AccessToken.getCurrentAccessToken() != null) {
-            userEmail.setText(AccessToken.getCurrentAccessToken().getUserId());
-        }
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,27 +168,10 @@ public class MainActivity extends AppCompatActivity {
         });*/
     }
 
-    private void getData(JSONObject object) {
-
-        try {
-            URL profilePicture = new URL("https://graph.facebook.com/" + object.getString("id") + "/picture?width=250&height=250");
-            Picasso.with(this).load(profilePicture.toString()).into(avatarImg);
-
-            userEmail.setText(object.getString("email"));
-            userBday.setText(object.getString("birthday"));
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
     }
-}
 
+}
