@@ -69,10 +69,10 @@ public class MainActivity extends AppCompatActivity implements  GoogleApiClient.
     private GoogleSignInOptions mGoogleSignInOptions;
     private static final int REQ_CODE = 9001;
 
-    TextView userName;
-    TextView userLastName;
-    TextView userBday;
-    ImageView avatarImg;
+    TextView userNameTv;
+    TextView userLastNameTv;
+    TextView userBdayTv;
+    ImageView avatarImgIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,16 +86,13 @@ public class MainActivity extends AppCompatActivity implements  GoogleApiClient.
         googleBtn = findViewById(R.id.main_regGoogleBtn);
         googleBtn.setSize(SignInButton.SIZE_STANDARD);
 
-        userName = (TextView) findViewById(R.id.userName);
-        userLastName = (TextView) findViewById(R.id.userLastname);
-        userBday = (TextView) findViewById(R.id.userBday);
-        avatarImg = (ImageView) findViewById(R.id.avatarImg);
+        userNameTv = (TextView) findViewById(R.id.userName);
+        userLastNameTv = (TextView) findViewById(R.id.userLastname);
+        userBdayTv = (TextView) findViewById(R.id.userBday);
+        avatarImgIv = (ImageView) findViewById(R.id.avatarImg);
 
         mGoogleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         mGoogleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this,this).addApi(Auth.GOOGLE_SIGN_IN_API,mGoogleSignInOptions ).build();
-
-
-
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,12 +153,9 @@ public class MainActivity extends AppCompatActivity implements  GoogleApiClient.
                             e.printStackTrace();
                         }
 
-
-                        Picasso.with(MainActivity.this).load(profilePicture.toString()).into(avatarImg);
-
-                        userName.setText(firstName);
-                        userLastName.setText(lastName);
-                        userBday.setText(birthday);
+                        userNameTv.setText(firstName);
+                        userLastNameTv.setText(lastName);
+                        userBdayTv.setText(birthday);
 
                         Intent i = new Intent(MainActivity.this,ProfileActivity.class);
                         i.putExtra("name",firstName);
@@ -191,6 +185,9 @@ public class MainActivity extends AppCompatActivity implements  GoogleApiClient.
             }
         });
 
+
+        /* --- Google login using Google API --- */
+
         googleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -199,11 +196,7 @@ public class MainActivity extends AppCompatActivity implements  GoogleApiClient.
             }
         });
 
-
-
-
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -223,10 +216,10 @@ public class MainActivity extends AppCompatActivity implements  GoogleApiClient.
                 String email = account.getEmail();
                 String avatarUrl = account.getPhotoUrl().toString();
 
-                userName.setText(name);
-                userBday.setText(email);
+                userNameTv.setText(name);
+                userBdayTv.setText(email);
 
-                Picasso.with(MainActivity.this).load(avatarUrl).into(avatarImg);
+               // Picasso.with(MainActivity.this).load(avatarUrl).into(avatarImgIv);
 
                 Intent i = new Intent(MainActivity.this, ProfileActivity.class);
                 i.putExtra("name",name);

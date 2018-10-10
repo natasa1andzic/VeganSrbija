@@ -46,7 +46,7 @@ public class ProfileActivity extends AppCompatActivity {
         Glide
                 .with(this)
                 .load(avatarString)
-                .override(250, 250) // resizes the image to these dimensions (in pixel). does not respect aspect ratio
+                .override(250, 250)
                 .into(avatar);
 
 
