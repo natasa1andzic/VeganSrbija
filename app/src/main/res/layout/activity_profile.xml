@@ -9,27 +9,51 @@
 
     <ImageView
         android:id="@+id/profileAvatar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
         android:layout_width="250dp"
         android:layout_height="250dp" />
     
     <TextView
         android:id="@+id/profileName"
-        android:hint="name"
+        android:hint="Name"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        android:layout_alignLeft="@+id/profileAvatar"
         android:layout_below="@+id/profileAvatar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-    <TextView
+
+ <!--   <TextView
         android:id="@+id/profileLastname"
-        android:hint="last name"
-        android:layout_below="@+id/profileName"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/profileName"
+        android:layout_centerHorizontal="true"
+        android:hint="Last name"
+        android:textSize="20sp" />-->
+
     <TextView
         android:id="@+id/profileBday"
-        android:hint="bday"
-        android:layout_below="@+id/profileLastname"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/profileAvatar"
+        android:layout_alignLeft="@+id/profileAvatar"
+        android:layout_below="@+id/profileName"
+        android:hint="Birthday"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/profileEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/profileName"
+        android:layout_alignRight="@+id/profileName"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="126dp"
+        android:hint="Email"
+        android:textSize="20sp" />
 
 
 

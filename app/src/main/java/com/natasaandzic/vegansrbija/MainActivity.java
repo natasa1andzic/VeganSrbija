@@ -30,6 +30,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Debug;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -62,12 +63,13 @@ public class MainActivity extends AppCompatActivity implements  GoogleApiClient.
 
     CallbackManager callbackManager;
     ProgressDialog progressDialog;
-    String id, firstName, lastName, birthday, gender;
+    String id, firstName, lastName, birthday, gender, email;
     private URL profilePicture;
 
     private GoogleApiClient mGoogleApiClient;
     private GoogleSignInOptions mGoogleSignInOptions;
-    private static final int REQ_CODE = 9001;
+    private static final int GOOGLE_REQ_CODE = 9001;
+    private static final int FACEBOOK_REQ_CODE = 1;
 
     TextView userNameTv;
     TextView userLastNameTv;
@@ -114,9 +116,8 @@ public class MainActivity extends AppCompatActivity implements  GoogleApiClient.
 
         callbackManager = CallbackManager.Factory.create();
 
-        List<String> permissionNeeds = Arrays.asList("user_photos", "email", "user_birthday", "public_profile");
+        List<String> permissionNeeds = Arrays.asList("user_photos", "email", "user_birthday", "public_profile", "user_gender");
         fbBtn.setReadPermissions(permissionNeeds);
-
 
         fbBtn.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -137,8 +138,11 @@ public class MainActivity extends AppCompatActivity implements  GoogleApiClient.
                         Log.d("Response", response.toString());
 
                         try {
+
                             id = object.getString("id");
                             profilePicture = new URL("https://graph.facebook.com/" + id + "/picture?width=250&height=250");
+                            if(object.has("email"))
+                                email = object.getString("email");
                             if(object.has("first_name"))
                                 firstName = object.getString("first_name");
                             if(object.has("last_name"))
@@ -152,15 +156,16 @@ public class MainActivity extends AppCompatActivity implements  GoogleApiClient.
                         } catch (MalformedURLException e) {
                             e.printStackTrace();
                         }
-
-                        userNameTv.setText(firstName);
-                        userLastNameTv.setText(lastName);
+                        String concat = firstName + " " + lastName;
+                        userNameTv.setText(concat);
+                       // userLastNameTv.setText(lastName);
                         userBdayTv.setText(birthday);
 
                         Intent i = new Intent(MainActivity.this,ProfileActivity.class);
                         i.putExtra("name",firstName);
                         i.putExtra("surname",lastName);
                         i.putExtra("birthday",birthday);
+                        i.putExtra("email",email );
                         i.putExtra("imageUrl",profilePicture.toString());
                         startActivity(i);
                         finish();
@@ -192,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements  GoogleApiClient.
             @Override
             public void onClick(View v) {
                 Intent i = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-                startActivityForResult(i,REQ_CODE);
+                startActivityForResult(i,GOOGLE_REQ_CODE);
             }
         });
 
@@ -201,35 +206,36 @@ public class MainActivity extends AppCompatActivity implements  GoogleApiClient.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        //fejs
         callbackManager.onActivityResult(requestCode, resultCode, data);
 
         super.onActivityResult(requestCode, resultCode, data);
 
         //gugl
-        if(requestCode == REQ_CODE) {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            if (result.isSuccess()) {
-
-                GoogleSignInAccount account = result.getSignInAccount();
-                String name = account.getDisplayName();
-                String email = account.getEmail();
-                String avatarUrl = account.getPhotoUrl().toString();
-
-                userNameTv.setText(name);
-                userBdayTv.setText(email);
-
-               // Picasso.with(MainActivity.this).load(avatarUrl).into(avatarImgIv);
-
-                Intent i = new Intent(MainActivity.this, ProfileActivity.class);
-                i.putExtra("name",name);
-                i.putExtra("birthday",email);
-                i.putExtra("imageUrl",avatarUrl);
-                startActivity(i);
-
+        if (requestCode == GOOGLE_REQ_CODE) {
+                getGoogleCredentials(data);
             }
         }
-    }
+
+
+    private void getGoogleCredentials(Intent data) {
+        GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+        if (result.isSuccess()) {
+            GoogleSignInAccount account = result.getSignInAccount();
+            String name = account.getDisplayName();
+            String email = account.getEmail();
+            String avatarUrl = account.getPhotoUrl().toString();
+
+            userNameTv.setText(name);
+            userBdayTv.setText(email);
+
+            // Picasso.with(MainActivity.this).load(avatarUrl).into(avatarImgIv);
+            Intent i = new Intent(MainActivity.this, ProfileActivity.class);
+            i.putExtra("name",name);
+            i.putExtra("email",email);
+            i.putExtra("imageUrl",avatarUrl);
+            startActivity(i);
+    }}
+
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {

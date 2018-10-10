@@ -13,6 +13,7 @@ public class ProfileActivity extends AppCompatActivity {
     ImageView avatar;
     TextView userName;
     TextView userLastName;
+    TextView userEmail;
     TextView userBday;
 
     Bundle mBundle;
@@ -21,6 +22,8 @@ public class ProfileActivity extends AppCompatActivity {
     String nameString;
     String lastNameString;
     String bdayString;
+    String emailString;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +32,9 @@ public class ProfileActivity extends AppCompatActivity {
 
         avatar = (ImageView)findViewById(R.id.profileAvatar);
         userName = (TextView)findViewById(R.id.profileName);
-        userLastName = (TextView)findViewById(R.id.profileLastname);
+       // userLastName = (TextView)findViewById(R.id.profileLastname);
         userBday = (TextView)findViewById(R.id.profileBday);
+        userEmail = (TextView)findViewById(R.id.profileEmail);
 
         mBundle = getIntent().getExtras();
 
@@ -38,9 +42,11 @@ public class ProfileActivity extends AppCompatActivity {
         nameString = mBundle.getString("name");
         lastNameString = mBundle.getString("surname");
         bdayString = mBundle.getString("birthday");
+        emailString = mBundle.getString("email");
 
         userName.setText(nameString);
-        userLastName.setText(lastNameString);
+        //userLastName.setText(lastNameString);
+        userEmail.setText(emailString);
         userBday.setText(bdayString);
 
         Glide
@@ -48,7 +54,6 @@ public class ProfileActivity extends AppCompatActivity {
                 .load(avatarString)
                 .override(250, 250)
                 .into(avatar);
-
-
     }
+
 }
