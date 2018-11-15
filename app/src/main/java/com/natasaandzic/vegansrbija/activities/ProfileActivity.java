@@ -1,4 +1,4 @@
-package com.natasaandzic.vegansrbija;
+package com.natasaandzic.vegansrbija.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.natasaandzic.vegansrbija.R;
+
+import static android.view.View.VISIBLE;
+
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -14,7 +18,6 @@ public class ProfileActivity extends AppCompatActivity {
     TextView userName;
     TextView userLastName;
     TextView userEmail;
-    TextView userBday;
 
     Bundle mBundle;
 
@@ -32,8 +35,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         avatar = (ImageView)findViewById(R.id.profileAvatar);
         userName = (TextView)findViewById(R.id.profileName);
-       // userLastName = (TextView)findViewById(R.id.profileLastname);
-        userBday = (TextView)findViewById(R.id.profileBday);
+        userLastName = (TextView)findViewById(R.id.profileLastname);
         userEmail = (TextView)findViewById(R.id.profileEmail);
 
         mBundle = getIntent().getExtras();
@@ -45,9 +47,12 @@ public class ProfileActivity extends AppCompatActivity {
         emailString = mBundle.getString("email");
 
         userName.setText(nameString);
-        //userLastName.setText(lastNameString);
+
+        if(mBundle.getInt("code")==1) {
+            userLastName.setVisibility(VISIBLE);
+            userLastName.setText(lastNameString);
+        }
         userEmail.setText(emailString);
-        userBday.setText(bdayString);
 
         Glide
                 .with(this)

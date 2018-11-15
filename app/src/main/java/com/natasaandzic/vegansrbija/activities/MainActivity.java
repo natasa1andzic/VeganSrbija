@@ -1,38 +1,25 @@
-package com.natasaandzic.vegansrbija;
+package com.natasaandzic.vegansrbija.activities;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.common.api.Api;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.Status;
-import com.squareup.picasso.Picasso;
+import com.natasaandzic.vegansrbija.R;
 
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.os.Debug;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -45,25 +32,19 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.FileDescriptor;
-import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity implements  GoogleApiClient.OnConnectionFailedListener{
-
-    Button loginBtn;
-    Button emailRegisterBtn;
 
     LoginButton fbBtn;
     SignInButton googleBtn;
 
     CallbackManager callbackManager;
     ProgressDialog progressDialog;
-    String id, firstName, lastName, birthday, gender, email;
+    String id, firstName, lastName, email;
     private URL profilePicture;
 
     private GoogleApiClient mGoogleApiClient;
@@ -82,8 +63,6 @@ public class MainActivity extends AppCompatActivity implements  GoogleApiClient.
 
         setContentView(R.layout.activity_main);
 
-        loginBtn = (Button) findViewById(R.id.main_loginBtn);
-        emailRegisterBtn = (Button) findViewById(R.id.main_emailRegisterBtn);
         fbBtn = (LoginButton) findViewById(R.id.main_regFacebookBtn);
         googleBtn = findViewById(R.id.main_regGoogleBtn);
         googleBtn.setSize(SignInButton.SIZE_STANDARD);
@@ -96,27 +75,12 @@ public class MainActivity extends AppCompatActivity implements  GoogleApiClient.
         mGoogleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         mGoogleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this,this).addApi(Auth.GOOGLE_SIGN_IN_API,mGoogleSignInOptions ).build();
 
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(i);
-            }
-        });
-
-        emailRegisterBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, EmailRegisterActivity.class);
-                startActivity(i);
-            }
-        });
 
         /* --- Facebook login using Graph API --- */
 
         callbackManager = CallbackManager.Factory.create();
 
-        List<String> permissionNeeds = Arrays.asList("user_photos", "email", "user_birthday", "public_profile", "user_gender");
+        List<String> permissionNeeds = Arrays.asList("user_photos", "email", "public_profile");
         fbBtn.setReadPermissions(permissionNeeds);
 
         fbBtn.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -147,10 +111,6 @@ public class MainActivity extends AppCompatActivity implements  GoogleApiClient.
                                 firstName = object.getString("first_name");
                             if(object.has("last_name"))
                                 lastName = object.getString("last_name");
-                            if (object.has("birthday"))
-                                birthday = object.getString("birthday");
-                            if (object.has("gender"))
-                                gender = object.getString("gender");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         } catch (MalformedURLException e) {
@@ -158,22 +118,22 @@ public class MainActivity extends AppCompatActivity implements  GoogleApiClient.
                         }
                         String concat = firstName + " " + lastName;
                         userNameTv.setText(concat);
-                       // userLastNameTv.setText(lastName);
-                        userBdayTv.setText(birthday);
+                       userLastNameTv.setText(lastName);
 
                         Intent i = new Intent(MainActivity.this,ProfileActivity.class);
                         i.putExtra("name",firstName);
                         i.putExtra("surname",lastName);
-                        i.putExtra("birthday",birthday);
                         i.putExtra("email",email );
                         i.putExtra("imageUrl",profilePicture.toString());
+                        i.putExtra("code", 1);
                         startActivity(i);
                         finish();
                     }
                 });
 
                 Bundle parameters = new Bundle();
-                parameters.putString("fields", "id, first_name, last_name, email, birthday, gender , location");
+                parameters.putString("fields", "id, first_name, last_name, email, location");
+                parameters.putInt("code", FACEBOOK_REQ_CODE);
                 request.setParameters(parameters);
                 request.executeAsync();
 
