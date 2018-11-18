@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements  GoogleApiClient.
 
     TextView userNameTv;
     TextView userLastNameTv;
-    TextView userBdayTv;
+    TextView userEmailTv;
     ImageView avatarImgIv;
 
     @Override
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements  GoogleApiClient.
 
         userNameTv = (TextView) findViewById(R.id.userName);
         userLastNameTv = (TextView) findViewById(R.id.userLastname);
-        userBdayTv = (TextView) findViewById(R.id.userBday);
+        userEmailTv =(TextView) findViewById(R.id.userEmail);
         avatarImgIv = (ImageView) findViewById(R.id.avatarImg);
 
         mGoogleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity implements  GoogleApiClient.
             String avatarUrl = account.getPhotoUrl().toString();
 
             userNameTv.setText(name);
-            userBdayTv.setText(email);
+            userEmailTv.setText(email);
 
             // Picasso.with(MainActivity.this).load(avatarUrl).into(avatarImgIv);
             Intent i = new Intent(MainActivity.this, ProfileActivity.class);

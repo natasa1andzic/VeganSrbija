@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,82 +9,49 @@
 
     <ImageView
         android:id="@+id/avatarImg"
+        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/veg"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="70dp"
-        />
-
-    <Button
-        android:id="@+id/main_loginBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        android:background="@color/colorPrimary"
-        android:layout_below="@+id/avatarImg"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"
-        android:textColor="@color/white"
-        />
-
-    <Button
-        android:id="@+id/main_emailRegisterBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Register using e-mail"
-        android:background="@color/colorPrimary"
-        android:layout_below="@+id/main_loginBtn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:textColor="@color/white"
         />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/main_regGoogleBtn"
         android:layout_width="173dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="68dp" />
+        android:layout_gravity="center"
+        android:layout_marginBottom="68dp"
+        android:layout_marginTop="30dp" />
 
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/main_regFacebookBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="127dp" />
-
-
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp" />
 
     <TextView
         android:id="@+id/userName"
+        android:textSize="30sp"
+        android:hint="Name"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/main_emailRegisterBtn"
-        android:hint="Name" />
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/userLastname"
+        android:textSize="30sp"
+        android:hint="Last name"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/userBday"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:hint="Last name" />
+        android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/userBday"
+        android:id="@+id/userEmail"
+        android:textSize="30sp"
+        android:hint="email"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/userEmail"
-        android:layout_marginBottom="155dp"
-        android:hint="Bday"/>
+        android:layout_height="wrap_content" />
 
-</RelativeLayout>
+
+</LinearLayout>
