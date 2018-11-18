@@ -1,5 +1,6 @@
 package com.natasaandzic.vegansrbija.activities;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -83,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements  GoogleApiClient.
         List<String> permissionNeeds = Arrays.asList("user_photos", "email", "public_profile");
         fbBtn.setReadPermissions(permissionNeeds);
 
+
         fbBtn.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -91,9 +93,14 @@ public class MainActivity extends AppCompatActivity implements  GoogleApiClient.
                 progressDialog.show();
                 System.out.println("onSuccess");
 
-                String accessToken = loginResult.getAccessToken().getToken();
-               // if (AccessToken.getCurrentAccessToken() != null)
-               //     userEmail.setText(AccessToken.getCurrentAccessToken().getUserId());
+
+               String accessToken = loginResult.getAccessToken().getToken();
+                if (AccessToken.getCurrentAccessToken() != null) {
+                	Intent i = new Intent(MainActivity.this, ProfileActivity.class);
+                	startActivity(i);
+                }
+
+
 
                 final GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
                     @Override
@@ -149,6 +156,7 @@ public class MainActivity extends AppCompatActivity implements  GoogleApiClient.
                 Log.v("LoginActivity", exception.getCause().toString());
             }
         });
+
 
 
         /* --- Google login using Google API --- */

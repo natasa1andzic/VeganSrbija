@@ -10,35 +10,27 @@
     <RelativeLayout
         android:id="@+id/rellay1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="250dp"
         android:background="@drawable/grad"
         android:paddingBottom="20dp">
 
-        <RelativeLayout
-            android:id="@+id/icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profileAvatar"
+            android:layout_marginTop="30dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/circle_border">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:id="@+id/profileAvatar"
-                app:civ_border_width="2dp"
-                app:civ_border_color="#FF000000"/>
-
-        </RelativeLayout>
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="2dp" />
 
         <TextView
             android:id="@+id/profileName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/icon"
+            android:layout_below="@+id/profileAvatar"
+            android:layout_marginLeft="80dp"
             android:layout_marginTop="15sp"
-            android:layout_marginLeft="100dp"
             android:fontFamily="sans-serif-light"
             android:hint="Name"
             android:textColor="@color/white"
@@ -48,16 +40,15 @@
             android:id="@+id/profileLastname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/icon"
-            android:layout_marginTop="15sp"
+            android:layout_below="@+id/profileAvatar"
             android:layout_marginLeft="10sp"
+            android:layout_marginTop="15sp"
             android:layout_toRightOf="@+id/profileName"
-            android:textColor="@color/white"
             android:fontFamily="sans-serif-light"
             android:hint="Last name"
+            android:textColor="@color/white"
             android:textSize="32sp"
             android:visibility="invisible" />
-
 
         <TextView
             android:id="@+id/profileEmail"
@@ -73,7 +64,4 @@
 
 
     </RelativeLayout>
-
-
-
 </RelativeLayout>

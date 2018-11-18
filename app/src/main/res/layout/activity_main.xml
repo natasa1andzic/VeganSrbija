@@ -36,6 +36,7 @@
         android:id="@+id/userName"
         android:textSize="30sp"
         android:hint="Name"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -43,12 +44,14 @@
         android:id="@+id/userLastname"
         android:textSize="30sp"
         android:hint="Last name"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/userEmail"
         android:textSize="30sp"
+        android:visibility="gone"
         android:hint="email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
