@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "807567793582",
+    "firebase_url": "https://vegansrbija-8d107.firebaseio.com",
+    "project_id": "vegansrbija-8d107",
+    "storage_bucket": "vegansrbija-8d107.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:807567793582:android:c7816034b560f172",
+        "android_client_info": {
+          "package_name": "com.natasaandzic.vegansrbija"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "807567793582-ip1q41ubeadt37rt6701crhg7h6cd7pt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.natasaandzic.vegansrbija",
+            "certificate_hash": "db2cb2b22a8b5b5c52928bce2d1b22bb59aa69cc"
+          }
+        },
+        {
+          "client_id": "807567793582-j7grlh8cpvauitffsf63tm7rvvfla77i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDh7uSuft_HZQTnx7lX1QCFeGhV6W4j7Yk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "807567793582-ntieepkoofgkc0mhh5jft668ee6s45kt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

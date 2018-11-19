@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content">
+    <group
+        android:checkableBehavior="single"
+        android:id="@+id/main_menu">
+        <item
+            android:id="@+id/payment"
+            android:title="Home"
+            android:icon="@drawable/maps"/>
+        <item
+            android:id="@+id/trip"
+            android:title="Ship"
+            android:icon="@drawable/restaurant"/>
+        <item
+            android:id="@+id/freebie"
+            android:title="Free Rides"
+            android:icon="@drawable/maps"/>
+
+        <item
+            android:id="@+id/tips"
+            android:title="Help"
+            android:icon="@drawable/shop"/>
+        <item
+            android:id="@+id/logout"
+            android:title="Logout"
+            android:icon="@drawable/shop"/>
+    </group>
+
+    <group
+        android:id="@+id/legal_button"
+        android:checkableBehavior="none">
+
+        <item
+            android:id="@+id/drawer_item_settings"
+            android:icon="@drawable/shop"
+            android:title="Legal" >
+        </item>
+    </group>
+</menu>
