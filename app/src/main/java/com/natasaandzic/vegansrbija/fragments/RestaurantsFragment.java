@@ -2,24 +2,22 @@ package com.natasaandzic.vegansrbija.fragments;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.natasaandzic.vegansrbija.R;
-import com.natasaandzic.vegansrbija.adapters.RestaurantsArrayAdapter;
+import com.natasaandzic.vegansrbija.adapters.RestaurantsAdapter;
 import com.natasaandzic.vegansrbija.model.InternetConnection;
 import com.natasaandzic.vegansrbija.model.JSONParser;
 import com.natasaandzic.vegansrbija.model.Keys;
@@ -34,11 +32,16 @@ import java.util.ArrayList;
 
 public class RestaurantsFragment extends Fragment {
 
-	private Toast toastMsg;
-	private ListView listView;
+	private RecyclerView recyclerView;
+	private LinearLayoutManager lm;
+
 	private ArrayList<RestaurantsDataModel> list;
-	private RestaurantsArrayAdapter adapter;
+	private RestaurantsAdapter adapter;
+	private Toast toastMsg;
+
+
 	private static final String RESTAURANTS_URL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1z4RPtR6SnN6ejQZgimVejrLfzPt2kemDYo5A5aVTfHA&sheet=Sheet1";
+
 	public RestaurantsFragment() {
 		// Required empty public constructor
 	}
@@ -49,16 +52,17 @@ public class RestaurantsFragment extends Fragment {
 		// Inflate the layout for this fragment
 		View view = inflater.inflate(R.layout.fragment_restaurants, container, false);
 
-		list = new ArrayList<>();
-		adapter = new RestaurantsArrayAdapter(getActivity(), list);
-		listView = (ListView) view.findViewById(android.R.id.list);
-		listView.setAdapter(adapter);
+		recyclerView = (RecyclerView) view.findViewById(R.id.myRecyclerView);
+		recyclerView.setHasFixedSize(true);
+		lm = new LinearLayoutManager(getActivity());
+		recyclerView.setLayoutManager(lm);
+		DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), lm.getOrientation());
+		recyclerView.addItemDecoration(mDividerItemDecoration);
 
-		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				makeDialog(position);
-			}
-		});
+		list = new ArrayList<>();
+		adapter = new RestaurantsAdapter(list);
+
+		recyclerView.setAdapter(adapter);
 
 		if (InternetConnection.checkConnection(getContext()))
 			new RestaurantsFragment.GetDataTask().execute();
