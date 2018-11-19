@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements  GoogleApiClient.
 
     LoginButton fbBtn;
     SignInButton googleBtn;
+    Button continueBtn;
 
     CallbackManager callbackManager;
     ProgressDialog progressDialog;
@@ -72,10 +73,18 @@ public class MainActivity extends AppCompatActivity implements  GoogleApiClient.
         userLastNameTv = (TextView) findViewById(R.id.userLastname);
         userEmailTv =(TextView) findViewById(R.id.userEmail);
         avatarImgIv = (ImageView) findViewById(R.id.avatarImg);
+        continueBtn = (Button) findViewById(R.id.continueBtn);
 
         mGoogleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         mGoogleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this,this).addApi(Auth.GOOGLE_SIGN_IN_API,mGoogleSignInOptions ).build();
 
+        continueBtn.setOnClickListener(new View.OnClickListener() {
+	        @Override
+	        public void onClick(View v) {
+		        Intent i = new Intent(MainActivity.this, CityActivity.class);
+		        startActivity(i);
+	        }
+        });
 
         /* --- Facebook login using Graph API --- */
 
