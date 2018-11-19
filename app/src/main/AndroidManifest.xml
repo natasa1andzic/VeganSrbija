@@ -48,9 +48,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.ProfileActivity" />
-        <activity android:name=".activities.CityActivity" />
         <activity android:name=".activities.BelgradeActivity" />
-        <activity android:name=".activities.NoviSadActivity"></activity>
     </application>
 
 </manifest>

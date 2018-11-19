@@ -5,14 +5,16 @@ public class RestaurantsDataModel {
 	private String name;
 	private String address;
 	private String distance;
+	private String logo;
 
 	public RestaurantsDataModel() {
 	}
 
-	public RestaurantsDataModel(String name, String address, String distance) {
+	public RestaurantsDataModel(String name, String address, String distance, String logo) {
 		this.name = name;
 		this.address = address;
 		this.distance=distance;
+		this.logo=logo;
 	}
 
 	public String getName() {
@@ -37,5 +39,13 @@ public class RestaurantsDataModel {
 
 	public void setDistance(String distance) {
 		this.distance = distance;
+	}
+
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
 	}
 }

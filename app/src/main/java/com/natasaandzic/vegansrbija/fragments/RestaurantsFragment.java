@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,8 +38,8 @@ public class RestaurantsFragment extends Fragment {
 
 	private ArrayList<RestaurantsDataModel> list;
 	private RestaurantsAdapter adapter;
-	private Toast toastMsg;
 
+	public Toast toastMsg;
 
 	private static final String RESTAURANTS_URL = "https://script.google.com/macros/s/AKfycbxOLElujQcy1-ZUer1KgEvK16gkTLUqYftApjNCM_IRTL3HSuDk/exec?id=1z4RPtR6SnN6ejQZgimVejrLfzPt2kemDYo5A5aVTfHA&sheet=Sheet1";
 
@@ -51,6 +52,7 @@ public class RestaurantsFragment extends Fragment {
 	                         Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
 		View view = inflater.inflate(R.layout.fragment_restaurants, container, false);
+
 
 		recyclerView = (RecyclerView) view.findViewById(R.id.myRecyclerView);
 		recyclerView.setHasFixedSize(true);
@@ -109,8 +111,10 @@ public class RestaurantsFragment extends Fragment {
 								JSONObject innerObject = array.getJSONObject(jIndex);
 								String resName = innerObject.getString(Keys.KEY_RES_NAME);
 								String resAddress = innerObject.getString(Keys.KEY_RES_ADDRESS);
+								String resLogo = innerObject.getString(Keys.KEY_RES_LOGO);
 								model.setName(resName);
 								model.setAddress(resAddress);
+								model.setLogo(resLogo);
 
 								list.add(model);
 							}

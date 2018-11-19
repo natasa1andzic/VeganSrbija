@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements  GoogleApiClient.
         continueBtn.setOnClickListener(new View.OnClickListener() {
 	        @Override
 	        public void onClick(View v) {
-		        Intent i = new Intent(MainActivity.this, CityActivity.class);
+		        Intent i = new Intent(MainActivity.this, BelgradeActivity.class);
 		        startActivity(i);
 	        }
         });

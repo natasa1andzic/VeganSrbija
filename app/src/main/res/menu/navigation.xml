@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navRestaurants"
+        android:icon="@drawable/veg"
+        android:title="Restaurants" />
+
+    <item
+        android:id="@+id/navShops"
+        android:icon="@drawable/veg"
+        android:title="Shops" />
+
+    <item
+        android:id="@+id/navMaps"
+        android:icon="@drawable/veg"
+        android:title="Maps" />
+
+</menu>
