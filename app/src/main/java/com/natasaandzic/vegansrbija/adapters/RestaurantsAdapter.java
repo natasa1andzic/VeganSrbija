@@ -56,7 +56,6 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
 		String resDistance = model.getDistance();
 		String resLogoURL = model.getLogo();
 
-
 		Log.d("URL SLIKE", resLogoURL);
 
 		holder.resNameTv.setText(resName);

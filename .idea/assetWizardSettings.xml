@@ -19,7 +19,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="$USER_HOME$/Downloads/vegetarian-mark-250.png" />
+                                      <entry key="imageAsset" value="$USER_HOME$/Downloads/maps.png" />
+                                      <entry key="outputName" value="maps" />
                                     </map>
                                   </option>
                                 </PersistentState>

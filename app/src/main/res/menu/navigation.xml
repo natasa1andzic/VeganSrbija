@@ -3,17 +3,17 @@
 
     <item
         android:id="@+id/navRestaurants"
-        android:icon="@drawable/veg"
+        android:src="@drawable/restaurant"
         android:title="Restaurants" />
 
     <item
         android:id="@+id/navShops"
-        android:icon="@drawable/veg"
+        android:icon="@drawable/shop"
         android:title="Shops" />
 
     <item
         android:id="@+id/navMaps"
-        android:icon="@drawable/veg"
+        android:icon="@drawable/maps"
         android:title="Maps" />
 
 </menu>
