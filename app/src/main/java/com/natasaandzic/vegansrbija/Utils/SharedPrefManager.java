@@ -58,7 +58,6 @@ public class SharedPrefManager {
 		return sharedPreferences.getString("EMAIL", null);
 	}
 
-
 	public void saveName(Context context, String name){
 		mContext = context;
 		sharedPreferences = mContext.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
@@ -83,6 +82,19 @@ public class SharedPrefManager {
 	public String getPhoto(){
 		sharedPreferences = mContext.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
 		return sharedPreferences.getString("PHOTO", null);
+	}
+
+	public void saveCode(Context context, String code){
+		mContext = context;
+		sharedPreferences = mContext.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+		editor.putString("CODE", code);
+		editor.commit();
+	}
+
+	public String getCode(){
+		sharedPreferences = mContext.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+		return sharedPreferences.getString("CODE", null);
 	}
 
 	public void clear(){

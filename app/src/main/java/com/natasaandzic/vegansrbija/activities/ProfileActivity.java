@@ -10,13 +10,19 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.natasaandzic.vegansrbija.R;
 import com.natasaandzic.vegansrbija.Utils.SharedPrefManager;
@@ -30,11 +36,8 @@ public class ProfileActivity extends AppCompatActivity implements GoogleApiClien
 	TextView userLastName;
 	TextView userEmail;
 
-	Bundle mBundle;
-
-	String avatarString;
+	String code;
 	String nameString;
-	String lastNameString;
 	String emailString;
 
 	Button backBtn;
@@ -42,10 +45,10 @@ public class ProfileActivity extends AppCompatActivity implements GoogleApiClien
 
 	SharedPrefManager sharedPrefManager;
 	private GoogleApiClient mGoogleApiClient;
+	private GoogleSignInClient mGoogleSignInClient;
 	private FirebaseAuth mAuth;
 
 	private CircleImageView avatar;
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +62,27 @@ public class ProfileActivity extends AppCompatActivity implements GoogleApiClien
 		signOutBtn = (Button) findViewById(R.id.signOutButton);
 		backBtn = (Button)findViewById(R.id.backButton);
 
+		mAuth = FirebaseAuth.getInstance();
+
+		GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+				.requestIdToken(getString(R.string.default_web_client_id))
+				.requestEmail()
+				.build();
+		mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
 		sharedPrefManager = new SharedPrefManager(this);
 		nameString = sharedPrefManager.getName();
-		Log.d("NAME", nameString);
+		if (nameString==null) {
+			Intent i = new Intent(ProfileActivity.this, BelgradeActivity.class);
+			startActivity(i);
+			Toast.makeText(ProfileActivity.this, "You are not logged in", Toast.LENGTH_SHORT).show();
+		}
+		//Log.d("NAME", nameString);
 		emailString = sharedPrefManager.getUserEmail();
-		Log.d("EMAIL", emailString);
+		//Log.d("EMAIL", emailString);
 		String uri = sharedPrefManager.getPhoto();
 		Uri photoUri = Uri.parse(uri);
+		code=sharedPrefManager.getCode();
 
 		Picasso.with(this)
 				.load(photoUri)
@@ -83,17 +100,24 @@ public class ProfileActivity extends AppCompatActivity implements GoogleApiClien
 			public void onClick(View v) {
 				new SharedPrefManager(getApplicationContext()).clear();
 				mAuth.signOut();
-
-				Auth.GoogleSignInApi.revokeAccess(mGoogleApiClient).setResultCallback(
-						new ResultCallback<Status>() {
-							@Override
-							public void onResult(@NonNull Status status) {
-								Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
-								startActivity(intent);
-							}
-						}
-				);
-
+				if(code=="1") {
+					LoginManager.getInstance().logOut();
+					Log.d("Log out? ", mAuth.toString());
+					Intent i = new Intent(ProfileActivity.this, MainActivity.class);
+					Log.d("Intent??", "Main");
+					startActivity(i);
+				}
+				else if(code=="2"){
+					mGoogleSignInClient.signOut().addOnCompleteListener(ProfileActivity.this,
+							new OnCompleteListener<Void>() {
+								@Override
+								public void onComplete(@NonNull Task<Void> task) {
+									Intent i = new Intent(ProfileActivity.this, MainActivity.class);
+									Log.d("Radi li gugl ? :D", "Main");
+									startActivity(i);
+								}
+							});
+				}
 			}
 		});
 

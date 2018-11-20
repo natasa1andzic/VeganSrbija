@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_settings"
+        android:title="Profile"
+        android:id="@+id/menu_profile_item"
         android:orderInCategory="100"
-        android:title="Settings"
+        android:icon="@drawable/profile"
         app:showAsAction="always"/>
 
 

@@ -91,7 +91,6 @@ public class BelgradeActivity extends BaseActivity {
 		}
 	};
 
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -101,11 +100,10 @@ public class BelgradeActivity extends BaseActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
 
-		if (id == R.id.action_settings) {
+		if (id == R.id.menu_profile_item) {
 			startActivity(new Intent(BelgradeActivity.this, ProfileActivity.class));
 			return true;
 		}
-
 		return super.onOptionsItemSelected(item);
 	}
 }

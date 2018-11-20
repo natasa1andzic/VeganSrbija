@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">VeganSrbija</string>
-    <string name="facebook_app_id">1037372706444713</string>
-    <string name="fb_login_protocol_scheme">fb1037372706444713</string>
+    <string name="facebook_app_id">348729872358495</string>
+    <string name="fb_login_protocol_scheme">fb348729872358495</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -12,8 +13,7 @@
     <string name="drawer_close">Close</string>
 
     <string name="web_client_id">807567793582-ntieepkoofgkc0mhh5jft668ee6s45kt.apps.googleusercontent.com</string>
-
-
+    
     <string name="firebase_status_fmt">Firebase User: %s</string>
     <string name="google_status_fmt">Google User: %s</string>
     <string name="facebook_status_fmt">Facebook User: %s</string>
