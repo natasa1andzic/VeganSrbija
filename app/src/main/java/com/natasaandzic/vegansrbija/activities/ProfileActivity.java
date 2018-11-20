@@ -1,6 +1,6 @@
 package com.natasaandzic.vegansrbija.activities;
 
-import android.app.Activity;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -9,10 +9,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
@@ -25,9 +23,6 @@ import com.natasaandzic.vegansrbija.Utils.SharedPrefManager;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-
-import static android.view.View.VISIBLE;
-
 
 public class ProfileActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 

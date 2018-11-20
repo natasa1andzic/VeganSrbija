@@ -11,6 +11,12 @@ import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 
+import com.facebook.AccessToken;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -24,6 +30,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
@@ -35,10 +42,17 @@ import android.app.ProgressDialog;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.login.widget.LoginButton;
 import com.natasaandzic.vegansrbija.Utils.SharedPrefManager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -60,6 +74,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 	private TextView mStatusTextView;
 	private TextView mDetailTextView;
+	private TextView fbstatus;
 
 
 	TextView userNameTv;
@@ -73,6 +88,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 	private FirebaseAuth mAuth;
 
 	private GoogleSignInClient mGoogleSignInClient;
+
+	CallbackManager callbackManager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +111,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 		// Views
 		mStatusTextView = findViewById(R.id.status);
 		mDetailTextView = findViewById(R.id.detail);
+		fbstatus=findViewById(R.id.fbstatus);
 
 		// Button listeners
 		findViewById(R.id.main_regGoogleBtn).setOnClickListener(this);
@@ -117,83 +135,55 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 		mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
 		mAuth = FirebaseAuth.getInstance();
-		/*callbackManager = CallbackManager.Factory.create();
+
+		callbackManager = CallbackManager.Factory.create();
 
 		List<String> permissionNeeds = Arrays.asList("user_photos", "email", "public_profile");
 		fbBtn.setReadPermissions(permissionNeeds);
-		fbBtn.registerCallback(callbackManager,new FacebookCallback<LoginResult>()
-
-		{
+		fbBtn.registerCallback(callbackManager,new FacebookCallback<LoginResult>() {
 			@Override
-			public void onSuccess (LoginResult loginResult){
-				progressDialog = new ProgressDialog(MainActivity.this);
-				progressDialog.setMessage("Retrieving data...");
-				progressDialog.show();
-				System.out.println("onSuccess");
-
-
-				String accessToken = loginResult.getAccessToken().getToken();
-				if (AccessToken.getCurrentAccessToken() != null) {
-					Intent i = new Intent(MainActivity.this, ProfileActivity.class);
-					startActivity(i);
-				}
-
-
-				final GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
-					@Override
-					public void onCompleted(JSONObject object, GraphResponse response) {
-						progressDialog.dismiss();
-						Log.d("Response", response.toString());
-
-						try {
-
-							id = object.getString("id");
-							//photoUri = new URL("https://graph.facebook.com/" + id + "/picture?width=250&height=250");
-							if (object.has("email"))
-								email = object.getString("email");
-							if (object.has("first_name"))
-								firstName = object.getString("first_name");
-							if (object.has("last_name"))
-								lastName = object.getString("last_name");
-						} catch (JSONException e) {
-							e.printStackTrace();
-						} *//*catch (MalformedURLException e) {
-							e.printStackTrace();
-						}*//*
-						String concat = firstName + " " + lastName;
-						userNameTv.setText(concat);
-						userLastNameTv.setText(lastName);
-
-						Intent i = new Intent(MainActivity.this, ProfileActivity.class);
-						i.putExtra("name", firstName);
-						i.putExtra("surname", lastName);
-						i.putExtra("email", email);
-						i.putExtra("imageUri", photoUri.toString());
-						i.putExtra("code", 1);
-						startActivity(i);
-						finish();
-					}
-				});
-
-				Bundle parameters = new Bundle();
-				parameters.putString("fields", "id, first_name, last_name, email, location");
-				request.setParameters(parameters);
-				request.executeAsync();
-
+			public void onSuccess (LoginResult loginResult) {
+				handleFacebookAccessToken(loginResult.getAccessToken());
 			}
 
 			@Override
-			public void onCancel () {
-				System.out.println("onCancel");
+			public void onCancel() {
+				updateUI(null);
 			}
 
 			@Override
-			public void onError (FacebookException exception){
-				Log.v("LoginActivity", exception.getCause().toString());
+			public void onError(FacebookException error) {
+				Log.d(TAG, "facebook:onError", error);
+				updateUI(null);
 			}
 		});
-*/
+	}
 
+
+
+
+	private void handleFacebookAccessToken(AccessToken token) {
+		Log.d(TAG, "handleFacebookAccessToken:" + token);
+		showProgressDialog();
+
+		AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+		mAuth.signInWithCredential(credential)
+				.addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+					@Override
+					public void onComplete(@NonNull Task<AuthResult> task) {
+						if (task.isSuccessful()) {
+							Log.d(TAG, "signInWithCredential:success");
+							FirebaseUser user = mAuth.getCurrentUser();
+							updateUI(user);
+						} else {
+							Log.w(TAG, "signInWithCredential:failure", task.getException());
+							Toast.makeText(MainActivity.this, "Authentication failed.",
+									Toast.LENGTH_SHORT).show();
+							updateUI(null);
+						}
+						hideProgressDialog();
+					}
+				});
 	}
 
 	@Override
@@ -209,32 +199,33 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 		if (requestCode == RC_SIGN_IN) {
 			Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
 			try {
-				// Google Sign In was successful, authenticate with Firebase
 				GoogleSignInAccount account = task.getResult(ApiException.class);
-					idToken = account.getIdToken();
+				idToken = account.getIdToken();
 
-					name = account.getDisplayName();
-					Log.d("IME", name);
-					email = account.getEmail();
-					photoUri = account.getPhotoUrl();
-					photo = photoUri.toString();
+				name = account.getDisplayName();
+				Log.d("IME", name);
+				email = account.getEmail();
+				photoUri = account.getPhotoUrl();
+				photo = photoUri.toString();
 
-					sharedPrefManager = new SharedPrefManager(mContext);
-					sharedPrefManager.saveIsLoggedIn(mContext, true);
+				sharedPrefManager = new SharedPrefManager(mContext);
+				sharedPrefManager.saveIsLoggedIn(mContext, true);
 
-					sharedPrefManager.saveEmail(mContext, email);
-					sharedPrefManager.saveName(mContext, name);
-					sharedPrefManager.savePhoto(mContext, photo);
+				sharedPrefManager.saveEmail(mContext, email);
+				sharedPrefManager.saveName(mContext, name);
+				sharedPrefManager.savePhoto(mContext, photo);
 
-					sharedPrefManager.saveToken(mContext, idToken);
-					sharedPrefManager.saveIsLoggedIn(mContext, true);
+				sharedPrefManager.saveToken(mContext, idToken);
+				sharedPrefManager.saveIsLoggedIn(mContext, true);
 
-					firebaseAuthWithGoogle(account);
+				firebaseAuthWithGoogle(account);
 			} catch(ApiException e) {
 				Log.w(TAG, "Google sign in failed", e);
 				updateUI(null);
 			}
 		}
+		else
+			callbackManager.onActivityResult(requestCode, resultCode, data);
 	}
 
 	private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
@@ -297,6 +288,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 		hideProgressDialog();
 		if (user != null) {
 			mStatusTextView.setText(getString(R.string.google_status_fmt, user.getEmail()));
+			fbstatus.setText(getString(R.string.facebook_status_fmt, user.getDisplayName()));
 			mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
 
 			findViewById(R.id.main_regGoogleBtn).setVisibility(View.GONE);
@@ -321,8 +313,4 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 			revokeAccess();
 		}
 	}
-
 }
-
-
-

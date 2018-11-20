@@ -94,5 +94,12 @@
         android:layout_height="wrap_content"
         tools:text="Firebase User ID: 123456789abc" />
 
+    <TextView
+        android:text="fb"
+        android:layout_below="@id/detail"
+        android:id="@+id/fbstatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 
 </RelativeLayout>
