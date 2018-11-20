@@ -1,28 +1,49 @@
 package com.natasaandzic.vegansrbija.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.firebase.auth.FirebaseAuth;
 import com.natasaandzic.vegansrbija.R;
+import com.natasaandzic.vegansrbija.Utils.SharedPrefManager;
 import com.natasaandzic.vegansrbija.adapters.MyFragmentPagerAdapter;
 import com.natasaandzic.vegansrbija.fragments.MapsFragment;
 import com.natasaandzic.vegansrbija.fragments.ProfileFragment;
 import com.natasaandzic.vegansrbija.fragments.RestaurantsFragment;
 import com.natasaandzic.vegansrbija.fragments.ShopsFragment;
+import com.squareup.picasso.Picasso;
 
-public class BelgradeActivity extends AppCompatActivity{
+import de.hdodenhof.circleimageview.CircleImageView;
+
+public class BelgradeActivity extends BaseActivity {
+
 
 	final Fragment fragment1 = new RestaurantsFragment();
 	final Fragment fragment2 = new ShopsFragment();
@@ -88,3 +109,5 @@ public class BelgradeActivity extends AppCompatActivity{
 		return super.onOptionsItemSelected(item);
 	}
 }
+
+

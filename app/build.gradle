@@ -42,10 +42,10 @@ dependencies {
     api 'com.squareup.okhttp:okhttp-urlconnection:2.2.0'
 
 
-    compile 'com.google.firebase:firebase-core:9.8.0'
-    compile 'com.google.firebase:firebase-auth:9.8.0'
-    compile 'com.google.android.gms:play-services-auth:9.8.0'
-    compile 'com.google.firebase:firebase-database:9.8.0'
+    compile 'com.google.firebase:firebase-core:16.0.5'
+    compile 'com.google.firebase:firebase-auth:16.0.5'
+    compile 'com.google.android.gms:play-services-auth:16.0.1'
+    compile 'com.google.firebase:firebase-database:16.0.5'
     compile 'com.firebase:firebase-client-android:2.4.0'
 }
 

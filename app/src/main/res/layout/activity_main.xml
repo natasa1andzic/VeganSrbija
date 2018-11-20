@@ -67,5 +67,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <Button
+        android:text="Sign out"
+        android:id="@+id/signOutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:text="Disconnect"
+        android:id="@+id/disconnectbtn"
+        android:layout_below="@id/signOutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_below="@id/disconnectbtn"
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="status" />
+
+    <TextView
+        android:id="@+id/detail"
+        android:layout_below="@id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Firebase User ID: 123456789abc" />
+
 
 </RelativeLayout>

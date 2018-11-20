@@ -7,7 +7,6 @@ public class SharedPrefManager {
 
 	SharedPreferences sharedPreferences;
 	Context mContext;
-	// Shared preferences file name
 	private static final String PREF_NAME = "sessionPref";
 	SharedPreferences.Editor editor;
 
@@ -24,7 +23,6 @@ public class SharedPrefManager {
 		SharedPreferences.Editor editor = sharedPreferences.edit();
 		editor.putBoolean ("IS_LOGGED_IN", isLoggedIn);
 		editor.commit();
-
 	}
 
 	public boolean getISLogged_IN() {

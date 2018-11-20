@@ -14,4 +14,7 @@
     <string name="web_client_id">807567793582-ntieepkoofgkc0mhh5jft668ee6s45kt.apps.googleusercontent.com</string>
 
 
+    <string name="firebase_status_fmt">Firebase User: %s</string>
+    <string name="google_status_fmt">Google User: %s</string>
+
 </resources>
